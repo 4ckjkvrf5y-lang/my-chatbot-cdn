@@ -28,13 +28,15 @@ exports.handler = async (event) => {
   // 3. Deliver the active chatbot injected with their specific database config
   const activeChatbotScript = `
     (function() {
-      // Pass the live database configuration directly to your loader engine
-      const config = ${JSON.stringify(data.chatbot_config)};
+      // 1. Save the live Supabase JSON rules to a global variable
+      window.ChatbotConfig = ${JSON.stringify(data.chatbot_config)};
       
-      console.log("Chatbot verified and loading configuration for ${clientId}...");
+      console.log("Chatbot verified and loading rules for ${clientId}...");
       
-      // IF YOU HAVE A LOADER SCRIPT, RUN IT HERE USING THE CONFIG VARIABLE:
-      // window.initMyChatbot(config);
+      // 2. Fetch and execute your core visual loader script from your Netlify assets
+      const script = document.createElement('script');
+      script.src = 'https://netlify.app';
+      document.head.appendChild(script);
     })();
   `;
 
@@ -43,5 +45,5 @@ exports.handler = async (event) => {
     headers: { 'Content-Type': 'application/javascript', 'Access-Control-Allow-Origin': '*' },
     body: activeChatbotScript
   };
-};
+
 
