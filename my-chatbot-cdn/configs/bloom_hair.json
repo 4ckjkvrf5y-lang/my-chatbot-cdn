@@ -1,0 +1,190 @@
+{
+  "businessName": "Bloom & Co. Hair Studio",
+  "allowedDomain": "bloomhairstudio.co.uk",
+  "primaryColor": "#16342b",
+  "secondaryColor": "#4e8b67",
+  "backgroundColor": "#f6f1e7",
+  "cardColor": "#efe7d6",
+  "welcomeMessage": "Hiya! Ask me about our opening hours, prices, travel options, accessibility, or bookings.",
+  "fallbackMessage": "I'm sorry, I don't have the answer to that question. Please contact our team directly:\n• Phone: 01234 567890\n• Email: bloom@hairstudios.co.uk",
+  "chips": [
+    {
+      "label": "\"how to book?\"",
+      "query": "How do I book an appointment?"
+    },
+    {
+      "label": "\"accessibility\"",
+      "query": "What accessibility features do you have?"
+    },
+    {
+      "label": "\"travel info\"",
+      "query": "How do I get there by bus or train?"
+    }
+  ],
+  "contact": {
+    "phone": "01234 567890",
+    "email": "bloom@hairstudios.co.uk"
+  },
+  "presetQA": [
+    {
+      "id": "pets",
+      "keywords": [
+        "pet", "pets", "dog", "dogs", "doggy", "doggies", "puppy", "puppies", "pooch",
+        "cat", "cats", "kitty", "kitties", "kitten", "kittens", "fish", "animal", "animals",
+        "furry friend", "furry friends", "bring my dog", "bring a dog", "bring my cat", "bring a cat",
+        "bring my pet", "bring a pet", "pet policy", "guide dog", "guide dogs", "service dog", "service dogs",
+        "assistance dog", "assistance dogs", "bring dog", "bring cat", "bring pet", "bring animals"
+      ],
+      "response": "We love animals, but for hygiene and safety reasons, pets are not allowed inside the salon (including dogs, cats, fish, or any other animals). Registered assistance or service dogs are always welcome!"
+    },
+    {
+      "id": "accessibility",
+      "keywords": [
+        "accessibility", "accessible", "wheelchair", "ramp", "autism", "autistic", "adhd", 
+        "disabled", "disability", "sensory", "special needs", "step free", "step-free", "accommodations"
+      ],
+      "response": "We aim to make our salon welcoming and comfortable for everyone. Our studio has built-in accessibility arrangements, including step-free access and a wheelchair ramp at the entrance.\n\nIf you have specific needs, accommodations, or preferences (such as sensory-friendly appointments for autism/ADHD, quiet spaces, or mobility support), please reach out to us directly so we can prepare for your visit:\n• Phone: 01234 567890\n• Email: bloom@hairstudios.co.uk"
+    },
+    {
+      "id": "bus",
+      "keywords": ["bus", "buses", "bus stop"],
+      "response": "Yes, you can take the bus! The Mill Street bus stop is located directly in front of our shop."
+    },
+    {
+      "id": "train",
+      "keywords": ["train", "trains", "train station", "rail", "railway"],
+      "response": "Yes, you can get the train here! Mill Street train station is just a short 5-minute walk away from us."
+    },
+    {
+      "id": "directions",
+      "keywords": [
+        "how to get there", "how do i get there", "directions", "reach", "travel", "transit", 
+        "public transport", "getting here", "find you", "where are you located"
+      ],
+      "response": "We are located at 14 Mill Street, past the post office.\n\n• Bus: The Mill Street bus stop is directly in front of the salon.\n• Train: Mill Street train station is just a 5-minute walk away.\n• Driving: Free parking is available round the back!"
+    },
+    {
+      "id": "children",
+      "keywords": ["child", "children", "chiden", "childen", "chidren", "kids", "kid", "toddler", "baby", "bring my child", "bring kids", "family", "pram", "stroller"],
+      "response": "Yes, absolutely! Children are very welcome in our salon during your appointment."
+    },
+    {
+      "id": "thanks",
+      "keywords": ["thanks", "thank you", "cheers", "awesome", "great", "perfect", "brilliant", "thankyou", "nice", "cool", "ty", "thx"],
+      "response": "You're very welcome! Let me know if you need anything else."
+    },
+    {
+      "id": "bye",
+      "keywords": ["bye", "goodbye", "see ya", "have a good day", "see you later", "take care", "cya", "later"],
+      "response": "Thanks for dropping by! Have a wonderful day!"
+    },
+    {
+      "id": "amenities",
+      "keywords": ["coffee", "tea", "drink", "drinks", "wifi", "wi-fi", "amenities", "refreshments", "snack", "water"],
+      "response": "We offer complimentary tea, coffee, and Wi-Fi for all clients during their visit!"
+    },
+    {
+      "id": "lateness",
+      "keywords": ["late", "running late", "lateness", "what if im late", "delay", "delayed", "leeway", "grace period", "behind schedule"],
+      "response": "We offer a 15-minute leeway for appointments. If you arrive more than 15 minutes late, your appointment will unfortunately be cancelled."
+    },
+    {
+      "id": "email",
+      "keywords": ["email", "email address", "e mail", "mail us", "emailing"],
+      "response": "You can email us at bloom@hairstudios.co.uk for inquiries and booking support."
+    },
+    {
+      "id": "phone",
+      "keywords": ["phone", "phone number", "telephone", "call", "call us", "contact number", "mobile", "number", "ring"],
+      "response": "You can call us directly on 01234 567890 during our working hours."
+    },
+    {
+      "id": "reschedule",
+      "keywords": ["reschedule", "rescheduling", "move booking", "move appointment", "change time", "change booking", "move my", "re-schedule"],
+      "response": "To reschedule or move an appointment, tap the link in your confirmation SMS, or call us at 01234 567890 at least 24 hours prior with no fee."
+    },
+    {
+      "id": "cancel",
+      "keywords": ["cancel", "cancelling", "cancellation", "policy", "undo booking"],
+      "response": "You can cancel your booking up to 24 hours in advance free of charge via your confirmation SMS link or by calling us."
+    },
+    {
+      "id": "sunday",
+      "keywords": ["sunday"],
+      "response": "On Sundays we are open from 10am to 4pm."
+    },
+    {
+      "id": "weekday",
+      "keywords": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+      "response": "We are open from 9am to 6pm on that day!"
+    },
+    {
+      "id": "hours",
+      "keywords": [
+        "open", "opening hours", "open hours", "opening time", "opening times", "open times",
+        "hours", "opening schedule", "work schedule", "business hours", "when are you open",
+        "what time do you open", "what time do you close", "weekend"
+      ],
+      "response": "We're open Sun 10am–4pm, and Mon–Sat 9am–6pm!"
+    },
+    {
+      "id": "booking_howto",
+      "keywords": [
+        "how to book", "how can i book", "how do i book", "how do we book", "how to make a booking",
+        "how do i make a booking", "how can i make a booking", "instructions to book", "ways to book",
+        "steps to book", "can i book online", "where do i book", "how to reserve"
+      ],
+      "response": "To book an appointment:\n1. Select a service from our menu.\n2. Tap 'Book Now' on our website or call 01234 567890.\n3. Choose your preferred date & time slot!"
+    },
+    {
+      "id": "booking_general",
+      "keywords": ["book", "booking", "reserve", "reservation", "appointment", "slot", "slots"],
+      "response": "You can book directly on our website using the 'Book Now' button, or tell me what service you're looking for!"
+    },
+    {
+      "id": "walkins",
+      "keywords": ["walk in", "walk-in", "walkin", "do you take walk ins", "can i walk in", "availability", "space", "busy"],
+      "response": "We accept walk-ins if space permits, but booking ahead guarantees your preferred slot."
+    },
+    {
+      "id": "prices",
+      "keywords": [
+        "price", "prices", "pricing", "cost", "costs", "price list", "menu", "rate", "rates", 
+        "fee", "fees", "how much", "how much is", "service", "services", "treatment", 
+        "treatments", "offerings", "options", "what do you offer", "service list", "list"
+      ],
+      "response": "Our main rates:\n• Cut & Blow-Dry: £35\n• Full Head Highlights: £75\n• Highlights + Cut Package: £95\n• Dry Trim: £20"
+    },
+    {
+      "id": "highlights",
+      "keywords": [
+        "full head", "highlights", "highlight", "highlihts", "highliths", "hightlights", 
+        "hilights", "hilight", "hilits", "hilit", "foil", "foils", "color", "colour", "blonde"
+      ],
+      "response": "A full head of highlights is £75, or £95 with a cut and blow-dry included."
+    },
+    {
+      "id": "haircut",
+      "keywords": ["haircut", "blow dry", "blow-dry", "trim", "hairstyle", "cut"],
+      "response": "A standard cut & blow-dry is £35, or a dry trim is £20."
+    },
+    {
+      "id": "location",
+      "keywords": [
+        "where", "address", "located", "location", "locaton", "locaiton", "lokation", 
+        "based", "map", "parking", "street", "whereabouts", "postcode"
+      ],
+      "response": "We are located at 14 Mill Street, past the post office.\n\n• Bus: The Mill Street bus stop is directly in front of the salon.\n• Train: Mill Street train station is just a 5-minute walk away.\n• Driving: Free parking is available round the back!"
+    },
+    {
+      "id": "greetings",
+      "keywords": ["hello", "hi", "hiya", "hey", "good morning", "good afternoon", "yo", "sup", "heya"],
+      "response": "Hi there! How can I help you today? You can ask me about bookings, prices, travel directions, accessibility, pets policy, or rescheduling."
+    },
+    {
+      "id": "payment",
+      "keywords": ["pay", "payment", "card", "cash", "apple pay", "contactless", "credit card"],
+      "response": "We accept all major credit/debit cards, cash, and Apple Pay."
+    }
+  ]
+}
