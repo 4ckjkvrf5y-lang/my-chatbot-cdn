@@ -1,7 +1,9 @@
-const { Octokit } = require("@octokit/rest");
+const { createClient } = require('@supabase/supabase-js');
+
+// 1. Initialize Supabase using your Netlify environment variables
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
 
 exports.handler = async (event) => {
-  // Only allow POST requests from Stripe
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
@@ -11,54 +13,36 @@ exports.handler = async (event) => {
     const eventType = stripeEvent.type;
     const session = stripeEvent.data.object;
 
-    // Retrieve the client ID passed during Stripe Checkout
+    // Pull the unique client identifier you pass during checkout
     const clientId = session.client_reference_id || session.metadata?.client_id;
 
     if (!clientId) {
       return { statusCode: 200, body: "No client ID found in event metadata." };
     }
 
-    // Determine target status
+    // Determine target status string for our database
     let activeStatus = null;
     if (eventType === "invoice.payment_failed" || eventType === "customer.subscription.deleted") {
-      activeStatus = false; // FAILSAFE: Turn off bot
+      activeStatus = "suspended"; 
     } else if (eventType === "invoice.payment_succeeded") {
-      activeStatus = true;  // Turn back on
+      activeStatus = "active";  
     }
 
     if (activeStatus === null) {
       return { statusCode: 200, body: "Event ignored." };
     }
 
-    // Initialize GitHub API client to update active-clients.json automatically
-    const octokit = new Octokit({ auth: process.env.GITHUB_PAT });
-    const owner = process.env.GITHUB_OWNER;
-    const repo = process.env.GITHUB_REPO;
-    const path = "active-clients.json";
+    // 2. Direct Database Update (Replaces all the slow GitHub/Octokit code)
+    const { error } = await supabase
+      .from('clients')
+      .update({ status: activeStatus })
+      .eq('client_id', clientId); // Matches the database column to your Stripe metadata ID
 
-    // 1. Get current active-clients.json content from GitHub repository
-    const { data: fileData } = await octokit.repos.getContent({ owner, repo, path });
-    const content = Buffer.from(fileData.content, "base64").toString("utf-8");
-    const activeClients = JSON.parse(content);
-
-    // 2. Update the specific client's active status
-    if (!activeClients[clientId]) {
-      activeClients[clientId] = {};
+    if (error) {
+      throw new Error(`Supabase Error: ${error.message}`);
     }
-    activeClients[clientId].active = activeStatus;
 
-    // 3. Commit updated active-clients.json back to GitHub
-    const updatedContent = Buffer.from(JSON.stringify(activeClients, null, 2)).toString("base64");
-    await octokit.repos.createOrUpdateFileContents({
-      owner,
-      repo,
-      path,
-      message: `Automated status update for ${clientId}: active = ${activeStatus}`,
-      content: updatedContent,
-      sha: fileData.sha,
-    });
-
-    return { statusCode: 200, body: `Updated ${clientId} active status to ${activeStatus}` };
+    return { statusCode: 200, body: `Updated ${clientId} database status to ${activeStatus}` };
   } catch (err) {
     console.error("Webhook processing error:", err);
     return { statusCode: 500, body: err.message };
