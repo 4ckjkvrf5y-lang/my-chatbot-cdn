@@ -1,0 +1,20 @@
+name: Deploy to Netlify
+on:
+  push:
+    branches:
+      - main  # Triggers every time you save code to your main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Netlify Production
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --prod --dir=.
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
