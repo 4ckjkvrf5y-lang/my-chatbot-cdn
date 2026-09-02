@@ -3,38 +3,10 @@
   const scriptTag = document.currentScript;
   const clientId = scriptTag.getAttribute("data-client-id") || "bloom_hair";
 
-  // Determine base path for fetching files
-  const scriptSrc = scriptTag.src;
-  const basePath = scriptSrc.substring(0, scriptSrc.lastIndexOf("/"));
+  // 2. Read the live configuration object injected safely from the database
+  const config = window.ChatbotConfig;
 
-  // 2. Check active-clients.json status BEFORE loading anything else
-  try {
-    const statusRes = await fetch(`${basePath}/active-clients.json`);
-    if (statusRes.ok) {
-      const activeClients = await statusRes.json();
-      
-      // If client exists in the list and active is explicitly false -> STOP HERE
-      if (activeClients[clientId] && activeClients[clientId].active === false) {
-        console.log(`Chatbot disabled for client: ${clientId}`);
-        return; 
-      }
-    }
-  } catch (err) {
-    console.warn("Could not load active-clients.json status, proceeding with default load.");
-  }
-
-  // 3. Fetch the JSON config file
-  let config;
-  try {
-    const response = await fetch(`${basePath}/configs/${clientId}.json`);
-    if (!response.ok) throw new Error("Config not found");
-    config = await response.json();
-  } catch (err) {
-    console.error("Chatbot Loader Error:", err);
-    return;
-  }
-
-  // 4. Inject Widget CSS Styles into head
+  // 3. Inject Widget CSS Styles into head
   const style = document.createElement("style");
   style.innerHTML = `
     .chat-widget-bubble {
@@ -173,7 +145,7 @@
   `;
   document.head.appendChild(style);
 
-  // 5. Create HTML elements for Widget
+  // 4. Create HTML elements for Widget
   const bubble = document.createElement("div");
   bubble.className = "chat-widget-bubble";
   bubble.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`;
