@@ -2,29 +2,39 @@ const { createClient } = require('@supabase/supabase-js');
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
 
 exports.handler = async (event) => {
-  const clientId = event.queryStringParameters.id; // e.g., ?id=client_abc_corp
+  // Grab the client id from the query parameter (e.g., ?id=bloom_hair)
+  const clientId = event.queryStringParameters.id; 
 
-  // 1. Look up the client status instantly
+  if (!clientId) {
+    return { statusCode: 400, body: "Missing client ID" };
+  }
+
+  // 1. Pull status and chatbot config from Supabase in a single quick call
   const { data, error } = await supabase
     .from('clients')
-    .select('status')
+    .select('status, chatbot_config')
     .eq('client_id', clientId)
     .single();
 
+  // 2. Gatekeeper Check: If suspended or not found, do not deliver the bot
   if (error || !data || data.status === 'suspended') {
-    // Return an absolute blank script if they haven't paid
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/javascript', 'Access-Control-Allow-Origin': '*' },
-      body: `console.warn("Chatbot disabled: Pending payment verification.");`
+      body: `console.warn("Chatbot disabled for ${clientId}: Pending payment verification.");`
     };
   }
 
-  // 2. Return your true chatbot initializer if they are active
+  // 3. Deliver the active chatbot injected with their specific database config
   const activeChatbotScript = `
     (function() {
-      console.log("Chatbot loading successfully...");
-      // PASTE YOUR RAW CHATBOT INJECTION CODE RIGHT HERE
+      // Pass the live database configuration directly to your loader engine
+      const config = ${JSON.stringify(data.chatbot_config)};
+      
+      console.log("Chatbot verified and loading configuration for ${clientId}...");
+      
+      // IF YOU HAVE A LOADER SCRIPT, RUN IT HERE USING THE CONFIG VARIABLE:
+      // window.initMyChatbot(config);
     })();
   `;
 
