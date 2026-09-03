@@ -10,8 +10,8 @@
   // Wait for the Supabase library to finish loading before running our database query
   supabaseScript.onload = async () => {
     // 3. SECURE INTEGRATION: Replace with your actual strings from your Supabase Dashboard Settings -> API
-    const supabaseUrl = "https://supabase.co"; 
-    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your-anon-key-here";
+    const supabaseUrl = "https://htenfwgtezkodjltfewe.supabase.co"; 
+    const supabaseKey = "sb_publishable_IQB8d5QJZ9JZ92igMzdEiQ_2l35tJtL";
     
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
