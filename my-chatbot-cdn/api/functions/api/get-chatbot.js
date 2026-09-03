@@ -35,7 +35,7 @@ exports.handler = async (event) => {
       
       // 2. Fetch and execute your core visual loader script from your Netlify assets
       const script = document.createElement('script');
-      script.src = 'https://netlify.app';
+      script.src = 'https://vercel.app';
       document.head.appendChild(script);
     })();
   `;
