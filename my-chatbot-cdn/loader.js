@@ -1,48 +1,42 @@
 (async function() {
-  // 1. Automatically grab the unique client ID passed from the website
   const clientId = window.clientId || "bloom_hair";
 
-  // 2. Load the official Supabase library dynamically into the client's page
-  const supabaseScript = document.createElement('script');
-  supabaseScript.src = 'https://jsdelivr.net';
-  document.head.appendChild(supabaseScript);
+  // 1. SAFE LOAD GATE: Only download the Supabase library if it doesn't exist yet
+  if (!window.supabase) {
+    await new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://jsdelivr.net';
+      script.onload = () => resolve();
+      document.head.appendChild(script);
+    });
+  }
 
-  // Wait for the Supabase library to finish loading before running our database query
-  supabaseScript.onload = async () => {
-    // 3. SECURE INTEGRATION: Replace with your actual strings from your Supabase Dashboard Settings -> API
-    const supabaseUrl = "https://htenfwgtezkodjltfewe.supabase.co"; 
-    const supabaseKey = "sb_publishable_IQB8d5QJZ9JZ92igMzdEiQ_2l35tJtL";
-    
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+  // 2. DATABASE AUTHENTICATION
+  const supabaseUrl = "https://supabase.co"; 
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0ZW5md2d0ZXprb2RqbHRmZXdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjUwODExMDMsImV4cCI6MjA0MDY1NzEwM30.your-key-here"; // Make sure your exact public anon key string is intact here
+  const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-    // 4. Fetch the client's status and their custom personalized JSON rules
-    const { data, error } = await supabaseClient
-      .from('clients')
-      .select('status, chatbot_config')
-      .eq('client_id', clientId)
-      .single();
+  // 3. FETCH CLIENT PAYMENT ACCESS & PERSONALIZED QA CONFIG FROM DATABASE
+  const { data, error } = await supabaseClient
+    .from('clients')
+    .select('status, chatbot_config')
+    .eq('client_id', clientId)
+    .single();
 
-    // 5. GATEKEEPER FAILSAFE: If they haven't paid or don't exist, completely hide the bot
-    if (error || !data || data.status === 'suspended') {
-      console.warn(`Chatbot disabled for ${clientId}: Pending payment verification.`);
-      return; 
-    }
+  // 4. GATEKEEPER CHECK: Stop execution immediately if suspended or missing
+  if (error || !data || data.status === 'suspended') {
+    console.warn(`Chatbot disabled for ${clientId}: Pending payment verification.`);
+    return; 
+  }
 
-    // 6. Access your client's personalized text, chips, and QA metrics
-    const config = data.chatbot_config;
-    console.log(`Chatbot verified and loading profile for: ${clientId}`);
+  const config = data.chatbot_config;
+  console.log(`Chatbot verified and launching engine profile for: ${clientId}`);
 
-    // =========================================================================
-    // PAST YOUR EXISTING CHAT BUBBLE RENDERING / UI VISUAL CODE DIRECTLY BELOW
-    // =========================================================================
-    
-    // (Example code utilizing the dynamic config parameters)
-    const chatBubble = document.createElement('div');
-    chatBubble.id = 'chatbot-widget-bubble';
-    chatBubble.style.cssText = 'position:fixed; bottom:20px; right:20px; width:60px; height:60px; border-radius:50%; background:#007bff; cursor:pointer; z-index:99999;';
-    document.body.appendChild(chatBubble);
+  // =========================================================================
+  // 5. PASTE ALL OF YOUR ORIGINAL VISUAL CHAT WIDGET UI GENERATION CODE BELOW
+  // =========================================================================
+  
+  // (Paste your complete functions here that read config.chips, config.presetQA 
+  // and build the layout, text divs, chat message window box, etc.)
 
-    // Your existing chatbot widget interface build code goes here...
-    
-  };
 })();
