@@ -13,8 +13,8 @@
 
     supabaseScript.onload = async function() {
         // REPLACE WITH YOUR ACTUAL PROJECTS DETAILS FROM SUPABASE API SETTINGS
-        const SUPABASE_URL = "https://YOUR_PROJECT_ID.supabase.co"; 
-        const SUPABASE_ANON_KEY = "YOUR_PUBLISHABLE_ANON_KEY"; 
+        const SUPABASE_URL = "https://htenfwgtezkodjltfewe.supabase.co"; 
+        const SUPABASE_ANON_KEY = "sb_publishable_IQB8d5QJZ9JZ92igMzdEiQ_2l35tJtL"; 
 
         const { createClient } = supabase;
         const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
