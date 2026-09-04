@@ -12,8 +12,8 @@
   }
 
   // 2. DATABASE AUTHENTICATION
-  const supabaseUrl = "https://supabase.co"; 
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0ZW5md2d0ZXprb2RqbHRmZXdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjUwODExMDMsImV4cCI6MjA0MDY1NzEwM30.your-key-here"; // Make sure your exact public anon key string is intact here
+  const supabaseUrl = "https://htenfwgtezkodjltfewe.supabase.co"; 
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0ZW5md2d0ZXprb2RqbHRmZXdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjUwODExMDMsImV4cCI6MjA0MDY1NzEwM30.sb_publishable_IQB8d5QJZ9JZ92igMzdEiQ_2l35tJtL"; // Make sure your exact public anon key string is intact here
   const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
   // 3. FETCH CLIENT PAYMENT ACCESS & PERSONALIZED QA CONFIG FROM DATABASE
