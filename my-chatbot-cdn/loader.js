@@ -4,7 +4,7 @@
   if (!clientId) return;
 
   // >>> FILL THIS IN: your deployed Vercel domain <<<
-  const API_BASE = 'https://YOUR-PROJECT-NAME.vercel.app';
+  const API_BASE = 'https://my-chatbot-cdn.vercel.app';
 
   fetch(`${API_BASE}/api/get-chatbot?clientId=${encodeURIComponent(clientId)}`)
     .then(function (r) { return r.json(); })
