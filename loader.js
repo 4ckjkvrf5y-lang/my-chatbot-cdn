@@ -13,26 +13,27 @@
     })
     .catch(function () {});
 
-function injectWidget(html) {
-  const iframe = document.createElement('iframe');
-  iframe.title = 'Chat widget';
-  iframe.style.position = 'fixed';
-  iframe.style.bottom = '0';
-  iframe.style.right = '0';
-  iframe.style.width = '400px';
-  iframe.style.maxWidth = '100vw';
-  iframe.style.border = 'none';
-  iframe.style.background = 'transparent';
-  iframe.style.zIndex = '999999';
+  function injectWidget(html) {
+    const iframe = document.createElement('iframe');
+    iframe.title = 'Chat widget';
+    iframe.style.position = 'fixed';
+    iframe.style.bottom = '0';
+    iframe.style.right = '0';
+    iframe.style.width = '400px';
+    iframe.style.maxWidth = '100vw';
+    iframe.style.border = 'none';
+    iframe.style.background = 'transparent';
+    iframe.style.zIndex = '999999';
 
-  function sizeIframe() {
-    const availableHeight = window.innerHeight - 20; // small safety margin from top of screen
-    iframe.style.height = Math.min(650, availableHeight) + 'px';
+    function sizeIframe() {
+      const availableHeight = window.innerHeight - 20; // small safety margin from top of screen
+      iframe.style.height = Math.min(650, availableHeight) + 'px';
+    }
+
+    sizeIframe();
+    window.addEventListener('resize', sizeIframe);
+
+    document.body.appendChild(iframe);
+    iframe.srcdoc = html;
   }
-
-  sizeIframe();
-  window.addEventListener('resize', sizeIframe);
-
-  document.body.appendChild(iframe);
-  iframe.srcdoc = html;
-}
+})();
